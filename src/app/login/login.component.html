@@ -1,0 +1,19 @@
+<div class="container mt-3 d-flex align-items-center">
+    <form action="" [formGroup]="loginForm" (ngSubmit)="login()" class="col-md-6 m-auto auth-form p-4" >
+        <h3 class="text-center">
+            Login
+        </h3>
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" formControlName="username" class="form-control" id="username" placeholder="Enter Your Username" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" formControlName="password" class="form-control" id="password" placeholder="Enter Your Password" required>
+        </div>
+        
+        <p *ngIf="failed" style="color: red;" align="center">worng username or password</p>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

@@ -1,0 +1,112 @@
+<nav class="navbar navbar-light bg-white">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between w-100">
+            <div class="menuIcon btn" (click)="showSidebar()">
+                <mat-icon>menu</mat-icon>
+            </div>
+            <span class="navbar-brand mb-0 h1" style="width:fit-content">Hello</span>
+            <span class="list-group-item text-white text-center bg-danger" aria-current="true" (click)="logout()"
+                style="width:fit-content">
+                Logout
+            </span>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3 p-0 contain-all-cats-names">
+
+            <div class="list-group position-sticky top-0">
+                <span class="list-group-item list-group-item-action active" aria-current="true"
+                    onclick="window.location.reload()">
+                    All Products
+                </span>
+                <ng-container *ngFor="let item of categories">
+                    <span class="list-group-item list-group-item-action " (click)="showOneCat($event, item)">
+                        {{ item }}
+                    </span>
+                </ng-container>
+                <div class="form-group mb-4 p-4">
+                    <span>
+                        Filter
+                    </span>
+                    <br>
+                    <label for="priceRange">Price</label>
+                    <input id="priceRange" type="range" min="0" max="1000" class="form-range" [(ngModel)]="maxPrice"
+                        (change)="priceChange($event)">
+                    <div class="d-flex justify-content-between mt-1">
+                        <span>Max: ${{ maxPrice }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9 bg-light">
+            <ng-container *ngFor="let category of categories">
+                <div class="cat-items m-md-4 p-md-4 bg-white" [id]="category">
+                    <h3>{{ category }}</h3>
+                    <div class="row justify-content-around">
+                        <ng-container *ngFor="let item of products">
+                            <ng-container *ngIf="item.category == category">
+                                <div class="col-md-3 mb-2 m-md-2 pb-3 card product-item" id="{{item.id}}" [ngStyle]="{'display': item.price >= maxPrice ? 'none' : 'flex'}">
+                                    <header class="card__header">
+                                        <h1 class="product__title">
+                                            {{ truncate(item.title, 3)}}
+                                        </h1>
+                                    </header>
+                                    <div class="card__image">
+                                        <img src="{{item.image}}" width="100%" height="200px" alt="">
+                                    </div>
+                                    <div class="card__content">
+                                        <h2 class="product__price">
+                                            ${{item.price}}
+                                        </h2>
+                                        <p class="product__description">
+                                            {{ truncate(item.description, 5)}}
+                                        </p>
+                                    </div>
+                                    <div class="card__actions d-flex justify-content-around">
+                                        <button class="btn btn-success ">
+                                            Add To Cart 
+                                        </button>
+                                        <button class="btn btn-primary details"(click)="openModal(item.id)">
+                                            Details
+                                        </button>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<div class="modal d-block" *ngIf="startUpdate">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{singleProduct.title}} </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+            </div>
+            <div class="modal-body"> 
+                <div class="product-container">
+                    <img src="{{singleProduct.image}}" alt="{{singleProduct.title}}" class="product-image">
+                    <div class="product-info">
+                      <p class="product-description">{{singleProduct.description}}</p>
+                      <div class="product-details">
+                        <span class="product-category">{{singleProduct.category}}</span>
+                        <span class="product-rating btn">
+                          {{singleProduct.rating.rate}} <mat-icon class="text-warning ms-3">star</mat-icon>
+
+                        </span>
+                        <button class="btn btn-success product-price">${{singleProduct.price}} <mat-icon class="ms-3">add_shopping_cart</mat-icon></button>
+                      </div>
+                    </div>
+                  </div>                  
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3 sidebar p-0">
+            <div class="list-group position-sticky top-0">
+                <div class="menuIcon btn" (click)="showSidebar()">
+                    <mat-icon>menu</mat-icon>
+                </div>
+                <div class="contain-all-cats-names">
+                    <span class="list-group-item list-group-item-action border-end-0 active" aria-current="true" onclick="window.location.reload()">
+                        All Products
+                    </span>
+                    <ng-container *ngFor="let item of categories">
+
+                        <span class="list-group-item list-group-item-action border-end-0" id="{{item}}" (click)="getcategory(item)">{{item}}</span>
+
+                    </ng-container>
+                    <span class="list-group-item text-white text-center bg-success" aria-current="true" (click)="openModal(null)">
+                        + Add Product
+                    </span>
+                </div>
+                <span class="list-group-item text-white text-center bg-danger" aria-current="true" (click)="logout()">
+                    Logout
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-9 bg-light">
+            <div class="row justify-content-around">
+                <ng-container *ngFor="let item of products | paginate: { itemsPerPage: 9, currentPage: page};">
+                    <div class="col-md-3 m-2 card product-item" id="{{item.id}}">
+                        <header class="card__header">
+                            <h1 class="product__title">
+                                {{ truncate(item.title, 3)}}
+                            </h1>
+                        </header>
+                        <div class="card__image">
+                            <img src="{{item.image}}" width="100%" height="200px" alt="">
+                        </div>
+                        <div class="card__content">
+                            <h2 class="product__price">
+                                ${{item.price}}
+                            </h2>
+                            <p class="product__description">
+                                {{ truncate(item.description, 5)}}
+                            </p>
+                        </div>
+                        <div class="card__actions">
+                            <button class="btn btn-primary update" (click)="openModal(item.id)">Update</button>
+                            <button class="btn btn-danger delete" (click)="deleteItem(item.id)">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <pagination-controls (pageChange)="page = $event" align="center"></pagination-controls>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal d-block" *ngIf="startUpdate">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{modalTitle}} </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+            </div>
+            <form action="" [formGroup]="updateForm" (ngSubmit)="update()">
+                <div class="modal-body">                   
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" formControlName="title" class="form-control" id="title"
+                            placeholder="Enter Title" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="number" formControlName="price" class="form-control" id="price"
+                            placeholder="Enter Price" required>                        
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image URL</label>
+                        <input type="text" formControlName="image" class="form-control" id="image"
+                            placeholder="Enter Image URL" required>
+                    </div>                   
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" formControlName="description" class="form-control" id="description"
+                            placeholder="Enter Description" required>
+                    </div>                   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="closeModal()" >Close</button>
+                    <button type="submit" class="btn btn-primary">{{modalTitle}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
