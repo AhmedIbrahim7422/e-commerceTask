@@ -1,27 +1,61 @@
-# ECommerce
+
+# E-Commerce Store Web App
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.14.
 
-## Development server
+This is a basic e-commerce store web application built using Angular, Angular Material, and Bootstrap. The app provides different views and functionalities based on user roles (Admin and User).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
 
-## Code scaffolding
+### Login Display
+- **User:** 
+  - Username: `test`
+  - Password: `testUser`
+- **Admin:**
+  - Username: `admin`
+  - Password: `adminUser`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Categories/Product Display
+- **API:** 
+  -Use https://fakestoreapi.com/
+- **Admin View:**
+  - Displays all products in a table with pagination.
+  - Allows adding, updating, and deleting products.
+- **User View:**
+  - Displays different categories and products under each category with a filter section.
+  - Shows full data for each item (using a popup or other suitable methods).
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Setup and Usage
 
-## Running unit tests
+### Prerequisites
+- Node.js
+- Angular CLI
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Installation
+1. Clone the repository:
+   git clone https://github.com/AhmedIbrahim7422/e-commerceTask.git
+   cd e-commerceTask
 
-## Running end-to-end tests
+2. Install the dependencies:
+   npm install
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Running the Application
+1. Start the development server:
+   ng serve
 
-## Further help
+2. Open your browser and navigate to `http://localhost:4200`.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Project Structure
+- `src/app`: Contains the main application modules and components.
+  - `src/app/shared` Contains the main services, Interfaces and Authgarud.
+- `src/assets`: Contains static assets like images and styles.
+- `src/environments`: Contains environment-specific configuration.
+
+## Development Practices
+- Mobile-friendly design with responsive layouts.
+- Usage of Angular Material and Bootstrap for a modern UI.
+- Consuming API endpoints for dynamic data fetching.
+
+## Contribution
+Feel free to fork this project and submit pull requests. Any contributions to enhance the application are welcome.
